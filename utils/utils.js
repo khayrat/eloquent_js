@@ -7,6 +7,8 @@ function test(label, body) {
   }
 }
 
+function itest(label, body) { }
+
 function sum(array) {
   return array.reduce((a,b) => a+b);
 }
@@ -18,6 +20,28 @@ function range(from, to, step = 1) {
   }
   return array;
 }
+
+function equals(a, b) {
+//  console.log(`typeof ${a}: ${typeof a}`);
+  if (a === b) return true;
+  if (typeof a != typeof b) return false;
+  if (typeof a != "object") return false;
+  
+  let a_props = Object.keys(a), b_props = Object.keys(b);
+
+  if (a_props.length != b_props.length) return false;
+
+  for (let prop of a_props) {
+    let a_v = a[prop], b_v = b[prop];
+    if (typeof a_v == "object") {
+      if (!equals(a_v, b_v)) return false;
+    }
+    else {
+      if (a_v !== b_v) return false;
+    }
+  }
+  return true;
+} 
 
 ///// tests //////
 
@@ -43,6 +67,8 @@ test("range", () => {
 
 module.exports = {
   test: test,
+  itest: itest,
   sum: sum,
-  range: range
+  range: range,
+  equals: equals
 }

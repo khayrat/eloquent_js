@@ -1,4 +1,4 @@
-function buildGraph(array_of_two) {
+function buildGraphObjects(array_of_two) {
   function addEdge(from, to) {
     if (graph[from] == null) {
       graph[from] = {};
@@ -14,4 +14,27 @@ function buildGraph(array_of_two) {
   return graph;
 }
 
-module.exports = buildGraph
+function buildGraphArray(edges) {
+  let graph = Object.create(null);
+
+  function addEdge(from, to) {
+    if (graph[from] == null) {
+      graph[from] = [to];
+    }
+    else {
+      graph[from].push(to);
+    }
+  }
+
+  for (let [from, to] of edges.map(edge => edge.split("-"))) {
+    addEdge(from, to);
+    addEdge(to, from);
+  }
+  return graph;
+}
+
+
+module.exports = {
+  buildGraphObjects: buildGraphObjects,
+  buildGraph: buildGraphArray
+}

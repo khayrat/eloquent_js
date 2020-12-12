@@ -1,26 +1,65 @@
-const {test} = require('../../utils/utils.js');
-const buildGraph = require('./graph/graph.js');
+const {itest, test, equals} = require('../../utils/utils.js');
+const {buildGraphObjects, buildGraph} = require('./graph/graph.js');
+const roadGraph = require('./road/road.js');
+const {VillageState, runRobot} = require('./state/state.js');
+const {shortestPathRobot, randomRobot, routeRobot, goalOrientedRobot} = require('./example-robots/example-robots.js');
+
+test("equals", () => {
+  return equals([1,2], [1,2]);
+}); 
+
+test("buildGraphObjects", () => {
+  const array_of_two = [['a','b']];
+  const expected = {'a': {'b': 1}, 'b': {'a': 1}};
+
+  //console.log(buildGraphObjects(array_of_two));
+  return equals(expected, buildGraphObjects(array_of_two));
+});
 
 test("buildGraph", () => {
-  const roads = [
-    "Alice's House-Bob's House",   "Alice's House-Post Office", 
-    "Daria's House-Ernie's House", "Ernie's House-Grete's House", 
-    "Grete's House-Shop",          "Marketplace-Post Office", 
-    "Marketplace-Town Hall",       "Alice's House-Cabin", 
-    "Bob's House-Town Hall",       "Daria's House-Town Hall", 
-    "Grete's House-Farm",          "Marketplace-Farm", 
-    "Marketplace-Shop",            "Shop-Town Hall"
-  ];
+  const array_of_two = ['a-b', 'a-c'];
+  const expected = {'a': ['b', 'c'], 'b': ['a'], 'c': ['a']};
 
-  function makeArrayOfTwo(edges) {
-    let result = [];
-    for (let [from, to] of edges.map(edge => edge.split("-"))) {
-      result.push([from, to]);   
-    }
-    return result;
-  };
+  //console.log(buildGraph(array_of_two));
+  return equals(expected, buildGraph(array_of_two));
+});
 
-  console.log(buildGraph(makeArrayOfTwo(roads)));
+itest("roadGraph", () => {
+  console.log(roadGraph);
+  return true;
+});
 
+test("VillageState", () => {
+  let village = VillageState.random();
+
+  console.log(village);
+  return true;
+});
+
+let village = VillageState.random();
+
+// shortestPathRobot, randomRobot, routeRobot, goalOrientedRobot
+test("randomRobot", () => {
+  runRobot(village, randomRobot, []);
+  return true;
+});
+
+test("randomRobot", () => {
+  runRobot(village, randomRobot, []);
+  return true;
+});
+
+test("routeRobot", () => {
+  runRobot(village, routeRobot, []);
+  return true;
+});
+
+test("goalOrientedRobot", () => {
+  runRobot(village, goalOrientedRobot, []);
+  return true;
+});
+
+test("shortestPathRobot", () => {
+  runRobot(village, shortestPathRobot, []);
   return true;
 });
