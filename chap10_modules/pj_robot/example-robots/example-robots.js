@@ -49,15 +49,6 @@ function routeRobot(state, memory) {
 }
 
 function goalOrientedRobot(state, memory) {
-  function buildArrayOfTwos(edges) {
-    let result = [];
-    for (let [from, to] of edges.map(edge => edge.split('-'))) {
-      result.push([from, to]);
-    }
-
-    return result;
-  }
-
   let { place, parcels } = state, route = memory;
   //console.log("robot with place:", place, "parcels: ", parcels);
   if (route.length == 0) {
