@@ -81,6 +81,7 @@ let prog = `
 `;
 */
 
+/*
 let prog = `
 do(define(sum, fun(array,
      do(define(i, 0),
@@ -90,6 +91,12 @@ do(define(sum, fun(array,
              define(i, +(i, 1)))),
         sum))),
    print(sum(array(1, 2, 3))))
+`;
+*/
+
+let prog = `
+do(define(f, fun(a, fun(b, +(a, b)))),
+  print(f(3)(2)))
 `;
 
 console.log(prog);
