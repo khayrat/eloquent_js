@@ -15,6 +15,17 @@ topScope.print = value => {
   return value;
 }
 
+topScope.array = (...args) => {
+  return args; 
+}
+topScope.length = array => {
+  return array.length;
+};
+
+topScope.element = (array, n) => {
+  return array[n];
+};
+
 function run(program) {
   return evaluate(parse(program), Object.create(topScope));
 }
@@ -45,6 +56,7 @@ let prog = `
 `;
 */
 
+/*
 let prog = `
   do(
     define(pow, 
@@ -57,6 +69,27 @@ let prog = `
     ),
     print(pow(2, 10))
   )
+`;
+*/
+
+/*
+let prog = `
+  do(define(arr, array(1,2,3)),
+  print(arr),
+  print(length(arr)),
+  print(element(arr,1)))
+`;
+*/
+
+let prog = `
+do(define(sum, fun(array,
+     do(define(i, 0),
+        define(sum, 0),
+        while(<(i, length(array)),
+          do(define(sum, +(sum, element(array, i))),
+             define(i, +(i, 1)))),
+        sum))),
+   print(sum(array(1, 2, 3))))
 `;
 
 console.log(prog);
