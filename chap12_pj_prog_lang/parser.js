@@ -1,4 +1,10 @@
+/* that matches “whitespace or a comment, zero or more times”. Use the exec or match method
+ * and look at the length of the first element in the returned array (the whole match) to
+ * find out how many characters to slice off.
+ */
 function skipSpace(string) {
+  // strip comments
+  string = string.replace(/#.*\n/g, "");
   let first = string.search(/\S/);
   if (first == -1) return "";
   return string.slice(first);
@@ -55,6 +61,8 @@ function parse(program) {
 /*
 console.log(parse("+(a, 10)"));
 console.log(parse("multiplier(2)(1)"));
+console.log(parse("# hello\nx"));
+console.log(parse("a # one\n   # two\n()"));
 */
 
 module.exports = parse 
