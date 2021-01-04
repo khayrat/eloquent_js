@@ -93,4 +93,17 @@ specialForms.fun = (args, scope) => {
   }
 }
 
+specialForms.set = (args, scope) => {
+  let name = args[0].name;
+  let value = evaluate(args[1], scope);
+  while (scope != null) {
+    if (Object.prototype.hasOwnProperty.call(scope, name)) {
+      scope[name] = value;
+      return value;
+    }
+    scope = Object.getPrototypeOf(scope);
+  }
+  throw new ReferenceError("no such binding");
+}
+
 module.exports = evaluate

@@ -94,10 +94,35 @@ do(define(sum, fun(array,
 `;
 */
 
+/*
 let prog = `
 do(define(f, fun(a, fun(b, +(a, b)))),
   print(f(3)(2)))
 `;
+*/
+
+/*
+let prog = `
+do(define(x, 4),
+   define(setx, fun(val, set(x, val)) ),
+   setx(50),
+   print(x))
+`;
+*/
+
+let prog = `
+do(define(x, 4),
+   define(f, fun(
+      do(define(x, 5),
+         print("x from f: "), print(x)))),
+   f(),
+   print("outer x: "), print(x))
+ `;
+/*
+let prog = `
+  set(quux, true)
+`;
+*/
 
 console.log(prog);
 console.log('-'.repeat(50));
